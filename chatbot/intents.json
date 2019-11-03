@@ -1,0 +1,74 @@
+{"intents": [
+    {"tag": "greeting",
+    "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+    "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
+    "context_filter": "greeting"
+    },
+    {"tag": "goodbye",
+    "patterns": ["Bye", "See you later", "Goodbye"],
+    "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."],
+    "context_set": "greeting",
+    "this_state": "",
+    "next_state": ""
+    },
+    {"tag": "thanks",
+    "patterns": ["Thanks", "Thank you", "That's helpful"],
+    "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {"tag": "new",
+    "patterns": ["I need a new report", "I need a report"],
+    "responses": ["No problem what type of report? (Analytical, Informational, Or Research)"],
+    "context_set": "new",
+    "context_filter": "greeting"
+    },
+    {"tag": "new_type_unknown",
+    "patterns": ["What do you mean?", "I'm not sure", "What?", "I don't know"],
+    "responses": ["So /n Analytical reports show what has happened, /n Informational reports show why something happened or what if something happened, /n and Research reports are things like 'greenfields' reporting, or feasibility review"],
+    "context_filter": "new"
+    },
+    {"tag": "new_type_analytical",
+    "patterns": ["analytical report thanks", "analytical report", "analysis please", "analysis", "analytical"],
+    "responses": ["Analytical. No problem please describe your report requirements"],
+    "context_filter": "new",
+    "context_set": "listening",
+    "this_state": "new_type_analytical",
+    "next_state": "new_requirements_valid"
+    },
+    {"tag": "new_type_informational",
+    "patterns": ["info report please", "info report", "informational report thanks", "informational report", "info", "informational"],
+    "responses": ["Informational. No problem please describe your report requirements"],
+    "context_filter": "new",
+    "context_set": "listening",
+    "this_state": "new_type_informational",
+    "next_state": "new_requirements_valid"
+    },
+    {"tag": "new_type_research",
+    "patterns": ["a research report please", "research report thanks", "research please", "research", "research report"],
+    "responses": ["Research. No problem please describe your report requirements"],
+    "context_filter": "new",
+    "context_set": "listening",
+    "this_state": "new_type_research",
+    "next_state": "new_requirements_valid"
+    },
+    {"tag": "new_requirements_valid",
+    "patterns": [""],
+    "responses": ["Awesome, now I need your company email address?"],
+    "context_filter": "new_requirements_valid"
+    },
+    {"tag": "invalid",
+    "patterns": ["I'm not sure", "I don't know"],
+    "responses": ["This information is required for us to coninue.", "We need this information to continue."],
+    "context_filter": "listening"
+    },
+    {"tag": "heard",
+    "patterns": ["That's it", "That's everything"],
+    "responses": [""],
+    "context_filter": "listening"
+    },
+    {"tag": "listening",
+    "patterns": [""],
+    "responses": [""],
+    "context_filter": "invalid"
+    }
+  ]
+}
